@@ -1,0 +1,375 @@
+<app-nav></app-nav>
+
+<main class="cs-page-weapper mt-5">
+    <!-- Breadcrumb -->
+    <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb-alt mb-0">
+                <li class="breadcrumb-item">
+                    <a [routerLink]="['/']"><i class="cxi-home"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Contactos</li>
+            </ol>
+        </div>
+    </nav>
+</main>
+
+<section class="container pt-3 pt-md-4">
+    <div class="row">
+
+        <!-- Nav tabs -->
+        <div class="col-md-4">
+            <div class="mb-md-5 mb-4 pb-lg-4" data-simplebar="" data-simplebar-auto-hide="false">
+                <ul class="nav flex-md-column flex-nowrap text-nowrap" role="tablist">
+                    <li class="nav-item">
+                        <a href="#contact" id="contact-tab" class="nav-link h3 mr-md-0 mr-sm-5 mr-4 mb-0 px-0 active"
+                            data-toggle="tab" role="tab" aria-controls="contact" aria-selected="true">
+                            Contáctanos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#stores" id="stores-tab" class="nav-link h3 mr-md-0 mr-sm-5 mr-4 mb-0 px-0"
+                            data-toggle="tab" role="tab" aria-controls="stores" aria-selected="false">
+                            Nuestra tienda
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#faq" id="faq-tab" class="nav-link h3 mr-md-0 mr-sm-5 mr-4 mb-0 px-0" data-toggle="tab"
+                            role="tab" aria-controls="faq" aria-selected="false">
+                            Preguntas frecuentes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tabs content -->
+        <div class="col-md-8 ml-auto pt-md-2">
+            <div class="tab-content pb-2 pb-sm-4 pb-lg-5">
+
+                <!-- Tab: Contact Us -->
+                <div id="contact" class="tab-pane pb-5 fade show active" role="tabpanel" aria-labelledby="contact-tab">
+                    <p class="text-dark lead font-weight-bold">Si tiene alguna pregunta, inquietud o comentario,
+                        ¡nos encantaría saber de usted! Envíe su consulta usando cualquiera de los siguientes métodos:
+                    </p>
+                    <div class="nav-dark mb-5">
+                        <a href="tel:920385491" class="nav-link d-flex align-items-center font-weight-normal p-0 mb-2">
+                            <i class="cxi-iphone text-primary lead mr-2"></i>
+                            <span>(+51) 920 385 491</span>
+                        </a>
+                        <a href="https://wa.me/51920385491"
+                            class="nav-link d-flex align-items-center font-weight-normal p-0 mb-2" target="_blank">
+                            <i class="cxi-whatsapp text-primary lead mr-2"></i>
+                            <span>(+51) 920 385 491</span>
+                        </a>
+                        <a href="mailto:hjm.tienda@gmail.com"
+                            class="nav-link d-flex align-items-center font-weight-normal p-0 mb-2">
+                            <i class="cxi-mail text-primary lead mr-2"></i>
+                            <span>hjm.tienda@gmail.com</span>
+                        </a>
+                        <a href="mailto:hokawa.920385491@gmail.com"
+                            class="nav-link d-flex align-items-center font-weight-normal p-0 mb-2">
+                            <i class="cxi-mail text-primary lead mr-2"></i>
+                            <span>hokawa.920385491@gmail.com</span>
+                        </a>
+                        <a href="https://www.facebook.com/HJMAYACUCHO?mibextid=LQQJ4d" target="_blank"
+                            class="nav-link d-flex align-items-center font-weight-normal p-0 mb-2">
+                            <i class="cxi-messenger text-primary lead mr-2"></i>
+                            <span>Contáctanos por Messenger</span>
+                        </a>
+                    </div>
+                    <p class="text-dark lead font-weight-bold pb-2">
+                        O póngase en contacto con nosotros completando el siguiente formulario:</p>
+                    <form #registroForm="ngForm" (ngSubmit)="registro(registroForm)">
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label for="cont-name" class="form-label">Nombres y apellidos *</label>
+                                <input type="text" id="cont-name" class="form-control form-control-lg"
+                                    placeholder="John Doe" required name="cliente" [(ngModel)]="contacto.cliente">
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label for="cont-email" class="form-label">Correo *</label>
+                                <input type="email" id="cont-email" class="form-control form-control-lg"
+                                    placeholder="johndoe@example.com" required name="correo"
+                                    [(ngModel)]="contacto.correo">
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label for="cont-phone" class="form-label">Teléfono *</label>
+                                <input type="text" id="cont-phone" class="form-control form-control-lg bg-0"
+                                    placeholder="00-000-0000" required name="telefono" [(ngModel)]="contacto.telefono">
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label for="cont-subject" class="form-label">Asunto *</label>
+                                <input type="text" id="cont-subject" class="form-control form-control-lg bg-0"
+                                    placeholder="Título del mensaje" required name="asunto"
+                                    [(ngModel)]="contacto.asunto">
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="cont-message" class="form-label">Mensaje *</label>
+                                <textarea id="cont-message" class="form-control form-control-lg" rows="5"
+                                    placeholder="Escribe tu consulta" required name="mensaje"
+                                    [(ngModel)]="contacto.mensaje"></textarea>
+                            </div>
+
+                            <div class="col-12 pt-2">
+                                <button type="submit" class="btn btn-primary btn-block"
+                                    [disabled]="registroForm.invalid" *ngIf="!load_btn">
+                                    <i class="cxi-send"></i>
+                                    Enviar
+                                </button>
+
+                                <!-- Button with growing spinner and text -->
+                                <button type="button" class="btn btn-secondary btn-block" *ngIf="load_btn">
+                                    <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"
+                                        disabled></span>
+                                    Enviando...
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Nuestras tiendas -->
+                <div id="stores" class="tab-pane pb-3 fade" role="tabpanel" aria-labelledby="stores-tab">
+                    <div class="row justify-content-center">
+
+                        <div class="col-9 mb-grid-gutter">
+                            <div class="card card-hover shadow">
+                                <img class="card-img-top" src="../../assets/img/ecommerce/contacts/tienda.jpg"
+                                    alt="Card image">
+                                <div class="card-body">
+                                    <h3 class="h4">Ayacucho, Perú</h3>
+                                    <ul class="mb-0 list-unstyled nav-dark">
+                                        <li class="mb-2 pb-1">
+                                            <a class="d-flex nav-link font-weight-normal p-0" href="tel:920385491">
+                                                <i class="cxi-iphone mt-1 mr-2 pr-1 lead text-primary"></i>
+                                                (+51) 920 385 491
+                                            </a>
+                                        </li>
+                                        <li class="mb-2 pb-1">
+                                            <a href="https://wa.me/51920385491"
+                                                class="nav-link d-flex align-items-center font-weight-normal p-0 mb-2"
+                                                target="_blank">
+                                                <i class="cxi-whatsapp text-primary lead mr-2"></i>
+                                                <span>(+51) 920 385 491</span>
+                                            </a>
+                                        </li>
+                                        <li class="mb-2 pb-1">
+                                            <a class="d-flex nav-link font-weight-normal p-0"
+                                                href="mailto:hjm.tienda@gmail.com" target="_blank">
+                                                <i class="cxi-mail mt-1 mr-2 pr-1 lead text-primary"></i>
+                                                hjm.tienda@gmail.com
+                                            </a>
+                                        </li>
+                                        <li class="mb-2 pb-1">
+                                            <a class="d-flex nav-link font-weight-normal p-0"
+                                                href="mailto:hokawa.920385491@gmail.com" target="_blank">
+                                                <i class="cxi-mail mt-1 mr-2 pr-1 lead text-primary"></i>
+                                                hokawa.920385491@gmail.com
+                                            </a>
+                                        </li>
+                                        <li class="mb-2 pb-1">
+                                            <div class="d-flex">
+                                                <i class="cxi-clock mt-1 mr-2 pr-1 lead text-primary"></i>
+                                                Todos los días desde las 8 am a 7 pm
+                                            </div>
+                                        </li>
+                                        <li class="mb-2 pb-1">
+                                            <a class="d-flex nav-link font-weight-normal p-0"
+                                                href="https://goo.gl/maps/ifQu2XEgK58boQnYA" target="_blank">
+                                                <i class="cxi-map-pin-outline mt-1 mr-2 pr-1 lead text-primary"></i>
+                                                Jr. Libertad #954 - Ayacucho
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: FAQ -->
+                <div id="faq" class="tab-pane fade mt-n3 mt-dm-0 pb-5" role="tabpanel" aria-labelledby="faq-tab">
+                    <div class="accordion-alt" id="accordion">
+                        <!-- Card -->
+                        <div class="card border-bottom">
+                            <div class="card-header" id="headingFaq-1">
+                                <h5 class="accordion-heading">
+                                    <a href="#faq-1" role="button" data-toggle="collapse" aria-expanded="true"
+                                        aria-controls="faq-1">Proceso de Aprobación de Pago
+                                        <span class="accordion-indicator"></span>
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="faq-1" class="collapse show" aria-labelledby="headingFaq-1"
+                                data-parent="#accordion">
+                                <div class="card-body text-muted">
+                                    <strong>¿Por qué se canceló/anuló mi compra?</strong> <br>
+
+                                    Rpta: Si tu pedido se canceló/anuló podría deberse a que los datos ingresados de tu
+                                    tarjeta de crédito no son correctos o podría haber algún problema con ella. Te
+                                    recomendamos contactarte con tu entidad bancaria. <br>
+
+                                    Si elegiste otro medio de pago como Pago Efectivo pudo cancelarse/anularse por no
+                                    haber realizado el pago a tiempo.<br> <br>
+
+                                    <strong>¿Recibiré alguna llamada para validar mi compra?</strong> <br>
+
+                                    Si realizaste tu pago con tarjeta de crédito es probable que recibas una llamada
+                                    para validar tu compra. Esta llamada puede realizarse hasta 6 horas después de
+                                    realizada tu compra. <br> <br>
+
+                                    <strong>¿Cuánto tiempo puede demorar la aprobación del pago de mi
+                                        compra?</strong><br>
+
+                                    Rpta: El tiempo de espera de la validación es de 4 horas útiles en promedio. Si
+                                    llegarás a detectar alguna demora en el proceso de aprobación de tu pago puedes
+                                    contactarte con nuestro Callcenter dentro de los horarios de atención.
+
+                                    Ellos realizarán las gestiones necesarias para brindarte una solución.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card -->
+                        <div class="card border-bottom">
+                            <div class="card-header" id="headingFaq-2">
+                                <h5 class="accordion-heading">
+                                    <a href="#faq-2" class="collapsed" role="button" data-toggle="collapse"
+                                        aria-expanded="false" aria-controls="faq-2">Recojo de Productos
+                                        <span class="accordion-indicator"></span>
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="faq-2" class="collapse" aria-labelledby="headingFaq-2" data-parent="#accordion">
+                                <div class="card-body text-muted">
+
+                                    <strong>¿Si deseo retirar mi pedido en alguna de las tiendas, debo llevar el
+                                        comprobante y
+                                        mi DNI? deseo retirar mi pedido en alguna de las tiendas, debo llevar el
+                                        comprobante
+                                        y mi DNI?</strong> <br>
+
+                                    Rpta: Si. Es necesario que lleves tu DNI físico. En caso de ser un tercero debe
+                                    llevar su DNI físico y copia del DNI del titular de la compra. Además, en tienda
+                                    podrían realizar una llamada al titular de la compra como validación adicional.
+                                    <br><br>
+
+                                    <strong>¿Si me olvido de ingresar los datos de la persona que recogerá mi pedido,
+                                        qué debo hacer? ¿Con quién me debo comunicar?</strong><br>
+
+                                    Rpta: Debes comunicarte con nuestro Callcenter dentro de los horarios de atención.
+                                    Ellos te indicarán el procedimiento necesario para que puedan recoger tu pedido sin
+                                    problemas.
+
+                                    En tienda podrían realizar una llamada adicional para la autorización del recojo.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card -->
+                        <div class="card border-bottom">
+                            <div class="card-header" id="headingFaq-3">
+                                <h5 class="accordion-heading">
+                                    <a href="#faq-3" class="collapsed" role="button" data-toggle="collapse"
+                                        aria-expanded="false" aria-controls="faq-3">Anulación de Compra
+                                        <span class="accordion-indicator"></span>
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="faq-3" class="collapse" aria-labelledby="headingFaq-3" data-parent="#accordion">
+                                <div class="card-body text-muted">
+
+                                    <strong>¿Puedo anular mi pedido en tienda o me debo comunicar con el
+                                        Callcenter?</strong><br>
+
+                                    Rpta: Puedes comunicarte con nuestro Callcenter brindando tus datos como Nombre, DNI
+                                    y Cóigo de compra. <br>
+
+                                    Nuestro Callcenter realizará una llamada posterior para confirmar dicha
+                                    solicitud.<br><br>
+
+                                    <strong>¿Puedo anular mi pedido y solicitar una nota de crédito para comprar otro
+                                        producto
+                                        en Tienda?</strong><br>
+
+                                    Rpta: Si es posible, pero solo desde que el pago de tu pedido haya sido aprobado. Se
+                                    debe verificar que el producto no ha sido entregado y solo el titular de la compra o
+                                    tarjeta puede recibir la Nota de Crédito.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card -->
+                        <div class="card border-bottom">
+                            <div class="card-header" id="headingFaq-4">
+                                <h5 class="accordion-heading">
+                                    <a href="#faq-4" class="collapsed" role="button" data-toggle="collapse"
+                                        aria-expanded="false" aria-controls="faq-4">Devoluciones
+                                        <span class="accordion-indicator"></span>
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="faq-4" class="collapse" aria-labelledby="headingFaq-4" data-parent="#accordion">
+                                <div class="card-body text-muted">
+
+                                    <strong>¿Cuánto plazo tengo para realizar una devolución o cambio de
+                                        producto?</strong><br>
+
+                                    Rpta: El plazo es de 7 días. El producto debe estar en perfecto estado, con empaques
+                                    y accesorios completos. <br><br>
+
+                                    <strong>¿Qué debo hacer si deseo devolver mi pedido y la entrega fue a
+                                        domicilio?</strong><br>
+
+                                    Rpta. Puedes realizar la devolución de tu pedido llevando el producto a las oficinas
+                                    o también comunicándote con nuestro Callcenter, para coordinar el recojo a
+                                    Domicilio, en caso el producto sea de grandes dimensiones. <br>
+
+                                    Podríamos requerir una revisión previa del producto en tu domicilio antes de aceptar
+                                    el cambio o devolución. <br><br>
+
+                                    <strong>¿Si mi compra se realizó con pago en efectivo con despacho a domicilio,
+                                        dónde
+                                        debería solicitar la devolución de mi dinero en caso de una anulación? ¿y si fue
+                                        con
+                                        retiro en tienda?</strong><br>
+
+                                    Rpta: Puedes solicitar la devolución de tu dinero para ambos casos en el call
+                                    center.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card -->
+                        <div class="card border-bottom">
+                            <div class="card-header" id="headingFaq-5">
+                                <h5 class="accordion-heading">
+                                    <a href="#faq-5" class="collapsed" role="button" data-toggle="collapse"
+                                        aria-expanded="false" aria-controls="faq-5">Promociones
+                                        <span class="accordion-indicator"></span>
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="faq-5" class="collapse" aria-labelledby="headingFaq-5" data-parent="#accordion">
+                                <div class="card-body text-muted">
+
+                                    <strong>¿Con qué frecuencia encuentro promociones?</strong><br>
+
+                                    Rpta: Te recomendamos visites siempre nuestra página y nos sigas nuestras redes sociales, 
+                                    ya que constantemente actualizamos nuestras promociones y ofertas. <br><br>
+
+                                    <strong>¿Cuáles son las restricciones de las promociones?</strong><br>
+
+                                    Rpta: Te recomendamos revises el texto legal adjunto en la parte inferior de cada
+                                    promoción. Estas pueden variar dependiendo de la promoción que se encuentre vigente.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer></app-footer>

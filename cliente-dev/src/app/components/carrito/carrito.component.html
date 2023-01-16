@@ -1,0 +1,383 @@
+<app-nav></app-nav>
+<main class="cs-page-wrapper">
+  <!-- Breadcrumb -->
+  <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb breadcrumb-alt mb-0">
+        <li class="breadcrumb-item">
+          <a href="index.html"><i class="cxi-home"></i></a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+      </ol>
+    </div>
+  </nav>
+
+
+  <!-- Page content -->
+  <section class="container pt-3 pt-md-4 pb-3 pb-sm-4 pb-lg-5 mb-4">
+    <div class="row">
+
+      <!-- Checkout content -->
+      <div class="col-lg-8 pr-lg-6">
+        <div class="d-flex align-items-center justify-content-between pb-2 mb-4">
+          <h1 class="mb-0">Checkout</h1>
+          <a [routerLink]="['/productos']"><strong>Volver a tienda</strong></a>
+        </div>
+
+        <hr class="border-top-0 border-bottom pt-2 mb-4">
+
+        <!-- Order review -->
+        <h2 class="h4 mb-4">1. Revisión de la orden</h2>
+        <div class="bg-secondary rounded mb-5" *ngIf="carrito_arr.length >= 1">
+          <!-- Item -->
+          <div class="media px-2 px-sm-4 py-4 border-bottom" *ngFor="let item of carrito_arr">
+            <a [routerLink]="['/productos/', item.producto.slug]" style="min-width: 80px;">
+              <img [src]="url + 'obtener_portada/' + item.producto.portada" width="80" alt="Product thumb">
+            </a>
+            <div class="media-body w-100 pl-3">
+              <div class="d-sm-flex">
+                <div class="pr-sm-3 w-100" style="max-width: 16rem;">
+                  <h3 class="font-size-sm mb-3">
+                    <a [routerLink]="['/productos/', item.producto.slug]"
+                      class="nav-link font-weight-bold">{{item.producto.titulo}}</a>
+                  </h3>
+                  <ul class="list-unstyled font-size-xs mt-n2 mb-2">
+                    <li class="mb-0"><span class="text-muted">{{item.producto.titulo_variedad}}:</span>
+                      {{item.variedad}}</li>
+                  </ul>
+                </div>
+                <div class="d-flex pr-sm-3">
+                  <input type="number" class="form-control form-control-sm bg-light mr-3" style="width: 4.5rem;"
+                    value="{{item.cantidad}}" readonly>
+                  <div class="text-nowrap" *ngIf="descuento_activo == undefined"><strong class="text-muted"
+                      style="font-size: 1.2rem;">
+                      S/. {{item.producto.precio}}</strong>
+                  </div>
+
+                  <div class="text-muted row h5 justify-content-between" *ngIf="descuento_activo != undefined">
+                    <div class="text-danger ml-1">
+                      <strong>S/. {{item.producto.precio | descuento: descuento_activo.descuento}}</strong>
+                    </div>
+
+                    <div class="ml-1 text-muted">
+                      <small> <del>S/. {{item.producto.precio}}</del></small>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center flex-sm-column text-sm-center ml-sm-auto pt-3 pt-sm-0">
+                  <a style="cursor: pointer; font-size: 1.2rem;" class="nav-link px-2 text-danger mx-2" title="Eliminar"
+                    (click)="eliminar_item(item._id)">
+                    <i class="cxi-delete"></i></a>
+                  <button class="btn btn-link btn-sm text-decoration-none pt-0 pt-sm-2 px-0 pb-0 mt-0 mt-sm-1">
+                    Añadir
+                    <i class="cxi-heart ml-1"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-3 px-sm-4 py-4 text-right">
+            <span class="text-muted">Subtotal:<strong class="text-dark font-size-lg ml-2">S/. {{subtotal}}
+              </strong></span>
+          </div>
+        </div>
+
+        <!-- Sin dirección -->
+        <div class="mt-0" *ngIf="carrito_arr.length == 0">
+          <div class="col-lg-12 card align-items-center py-4 rounded my-3"
+            style="background-color: rgb(255, 207, 207); border-color: rgb(255, 66, 66);">
+            <h4 class="text-danger">
+              No tiene productos en su carrito</h4>
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="#FF4242"
+              class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+              <path
+                d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+              <path
+                d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Adresses -->
+        <h2 class="h4">2. Dirección de envío</h2>
+        <div class="row">
+          <div class="card-body">
+            <div class="row justify-content-center" *ngIf="direccion_principal != undefined">
+              <!-- Header and footer -->
+              <div class="shadow text-center col-sm-12 rounded">
+                <div class="card-header">ZIP: {{direccion_principal.zip}}
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{direccion_principal.destinatario}}</h5>
+                  <p class="card-text">{{direccion_principal.direccion}}
+                    <span> - {{direccion_principal.distrito}}</span>
+                    <span> - {{direccion_principal.provincia}}</span>
+                    <span> - {{direccion_principal.region}}</span>
+                    <span> - {{direccion_principal.pais}}</span>
+                  </p>
+                  <p class="card-text">Teléfono: {{direccion_principal.telefono}}</p>
+                  <span class="badge rounded-pill bg-info text-white" *ngIf="direccion_principal.principal">
+                    Dirección de envío actual
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sin dirección -->
+            <div class="mt-0" *ngIf="direccion_principal == undefined">
+              <div class="col-lg-12 card align-items-center py-4 rounded"
+                style="background-color: rgb(255, 207, 207); border-color: rgb(255, 66, 66);">
+                <h4 class="text-danger">
+                  Debe registrar una dirección principal</h4>
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="#FF4242"
+                  class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
+                  <path
+                    d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+                  <path
+                    d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                </svg>
+
+                <button class="btn btn-danger btn-sm mt-4" [routerLink]="['/cuenta/direcciones']">
+                  Registrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="mb-4 pb-2">
+
+        <!-- Shipping -->
+        <h2 class="h4 mb-4">3. Métodos de envío</h2>
+
+        <p>Estimado cliente, por nuestras políticas de envío, todas tus compras se enviarán
+          mediante el método de pago contra entrega, es decir <em>al momento de realizar el recojo de su paquete,
+            deberá pagar a la empresa de transporte
+          </em>.
+        </p>
+
+        <p style="font-size: 1.2rem; background-color: rgb(255, 191, 191);" class="rounded p-3">
+          EL código de envío así como la empresa por donde se envía, se hará llegar mediante <strong>WhatsApp</strong>
+          o <strong>Correo electóronico</strong> al titular de la compra.
+        </p>
+        <span style="font-size: 1.2rem;">
+          <strong class="d-block">{{envios.titulo}}</strong>
+          <span class="text-muted font-size-sm">Tiempo de espera: {{envios.tiempo}}</span>
+        </span>
+
+        <hr class="border-top-0 border-bottom pt-4 mb-4">
+
+        <!-- Payment -->
+        <h2 class="h4 pt-2 mb-4">4. Métodos de pago</h2>
+        <div class="row pb-4">
+          <div class="col-lg-12">
+            <div class="accordion-alt" id="payment-methods">
+
+              <!-- Card: Credit card -->
+              <div class="card mb-3 px-4 py-3 border rounded box-shadow-sm">
+                <div class="card-header py-2">
+                  <div class="accordion-heading custom-control custom-radio" data-toggle="collapse"
+                    data-target="#cc-card">
+                    <input type="radio" class="custom-control-input" id="cc" name="payment" checked>
+                    <label for="cc" class="custom-control-label d-flex align-items-center">
+                      <strong class="d-block mr-3">Tarjeta de crédito / débito</strong>
+                      <img src="assets/img/cards.png" width="108" alt="Credit cards">
+                    </label>
+                  </div>
+                </div>
+                <div class="collapse show" id="cc-card" data-parent="#payment-methods">
+                  <h3 class="text-center text-danger">En proceso de implementación</h3>
+                  <div class="card-body pt-3 pb-0">
+                    <div class="form-group mb-3">
+                      <label for="cc-number">Número de tarjeta</label>
+                      <input type="text" id="cc-number" class="form-control form-control-lg" data-format="card"
+                        placeholder="0000 0000 0000 0000">
+                    </div>
+                    <div class="d-flex">
+                      <div class="form-group mb-3 mr-3">
+                        <label for="cc-exp-date">Vencimiento</label>
+                        <input type="text" id="cc-exp-date" class="form-control form-control-lg" data-format="date"
+                          placeholder="mm/yy">
+                      </div>
+                      <div class="form-group mb-3">
+                        <label for="cc-cvc">CVC</label>
+                        <input type="text" id="cc-cvc" class="form-control form-control-lg" data-format="cvc"
+                          maxlength="3" placeholder="000">
+                      </div>
+                    </div>
+                  </div>
+
+                  <button type="button" class="btn btn-primary btn-block bi-wallet-fill">
+                    Completar orden S/. {{total_pagar}}
+                  </button>
+                </div>
+              </div>
+
+              <!-- Transferencia -->
+              <div class="card mb-3 px-4 py-3 border rounded box-shadow-sm">
+                <div class="card-header py-2">
+                  <div class="accordion-heading custom-control custom-radio" data-toggle="collapse"
+                    data-target="#trans">
+                    <input type="radio" class="custom-control-input" id="trans" name="payment">
+                    <label for="trans" class="custom-control-label d-flex align-items-center">
+                      <strong class="d-block mr-3">Transferencia / depósito bancario</strong>
+                      <img src="assets/img/trans.png" width="200" alt="Credit cards">
+                    </label>
+                  </div>
+                </div>
+                <div class="collapse mx-4" id="trans" data-parent="#payment-methods">
+                  <!-- Cuentas -->
+                  <div class="row" *ngFor="let item of cuentas">
+                    <div class="col-12 rounded mt-3 p-3" [ngStyle]="{'background-color': item.color}">
+                      Cuenta del banco <strong>{{item.banco}}: {{item.cuenta}}</strong>, o al
+                      <strong>CCI: {{item.cci}}</strong> a nombre de <strong> {{item.titular}} </strong>
+                    </div>
+                  </div>
+
+                  <p class="mt-3">Estimado cliente, al momento de ralizar el depósito del monto correspondiente, enviar
+                    el <strong>código de la compra </strong> y
+                    <strong>el comprobante</strong> al whatsapp <a href="https://wa.me/51920385491" target="_blank"
+                      style="text-decoration: none;">
+                      <strong>920 385 491</strong></a> o al correo
+                    <a href="mailto:hjm.tienda@gmail.com" style="text-decoration: none;">
+                      <strong>hjm.tienda@gmail.com</strong></a>.
+                  </p>
+                  <p class="text-danger"><strong>RECUERDE:</strong> El reservar una compra no garantiza su compra, una
+                    vez que verifiquemos el depósito,
+                    procederemos con el envío. GRACIAS.
+                  </p>
+
+                  <div class="row mt-4">
+                    <button class="btn btn-primary btn-block" data-toggle="modal" [attr.data-target]="'#confirm'">
+                      Reservar compra
+                    </button>
+
+                    <!-- MODAL -->
+                    <div class="modal fade" id="confirm" tabindex="-1" style="display: none" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title text-center">
+                              Reservar compra
+                            </h4>
+                            <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal"
+                              aria-label="Close">
+                              x
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p class="fs-sm">Desea reservar la compra?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-secondary btn-sm bi-x-circle-fill" type="button"
+                              data-dismiss="modal">
+                              Cancelar
+                            </button>
+                            <button class="btn btn-primary btn-sm" (click)="pago_transferencia()" type="button"
+                              data-dismiss="modal"> <i class="cxi-check"></i>
+                              Reservar
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Card: PayPal -->
+              <div class="card mb-3 px-4 py-3 border rounded box-shadow-sm">
+                <div class="card-header py-2">
+                  <div class="accordion-heading custom-control custom-radio" data-toggle="collapse"
+                    data-target="#paypal-card">
+                    <input type="radio" class="custom-control-input" id="paypal" name="payment">
+                    <label for="paypal" class="custom-control-label d-flex align-items-center">
+                      <strong class="d-block mr-3">PayPal</strong>
+                      <img src="assets/img/paypal-badge.png" width="48" alt="PayPal">
+                    </label>
+                  </div>
+                </div>
+                <div class="collapse" id="paypal-card" data-parent="#payment-methods">
+                  <div class="card-body pt-3 pb-0" #paypalButton>
+                    <p class="rounded text-center py-2" style="background-color: rgb(255, 191, 191);">
+                      El tipo de cambio está dado en base al emitido por el SUNAT al día de hoy: <br> <strong>
+                        1 USD <i class="cxi-arrow-right"></i>
+                        S/. {{tipo_cambio}} </strong>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="mb-4 pb-2">
+
+        <!-- Additional info -->
+        <h2 class="h4 mb-4">5. Información adicional (opcional)</h2>
+        <div class="form-group">
+          <label for="ch-notes">Mensaje de la orden</label>
+          <textarea id="ch-notes" class="form-control form-control-lg" rows="5" name="nota" [(ngModel)]="venta.nota"
+            placeholder="Escriba su mensaje"></textarea>
+        </div>
+      </div>
+
+
+      <!-- Order totals (sticky sidebar) -->
+      <!-- For more sticky sidebar options visit https://abouolia.github.io/sticky-sidebar/#options -->
+      <aside class="col-lg-4">
+        <div class="sidebar-sticky">
+          <div class="sidebar-sticky-inner">
+            <div class="form-group">
+              <label for="promo-code">Aplicar cupón</label>
+              <div class="input-group input-group-lg">
+                <input type="text" id="promo-code" class="form-control" placeholder="Ingrese código de cupón"
+                  name="venta.cupon" [(ngModel)]="venta.cupon">
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-primary" (click)="validar_cupon()" [disabled]="!btn_cupon">
+                    Aplicar
+                  </button>
+                </div>
+              </div>
+
+              <!-- Danger alert -->
+              <div class="alert alert-danger mt-3 text-center" role="alert" *ngIf="error_cupon">
+                {{error_cupon}}
+              </div>
+
+            </div>
+            <div class="bg-secondary rounded mb-4">
+              <div class="border-bottom p-4">
+                <h2 class="h4 mb-0">Total de la orden</h2>
+              </div>
+              <ul class="list-unstyled border-bottom mb-0 p-4">
+                <li class="d-flex justify-content-between mb-2">
+                  <span class="font-weight-bold">Subtotal:</span>
+                  <span class="font-weight-bold">S/. {{subtotal}} </span>
+                </li>
+                <li class="d-flex justify-content-between mb-2">
+                  <span>Envío:</span>
+                  <span>S/. {{precio_envio}}</span>
+                </li>
+                <li class="d-flex justify-content-between mb-2">
+                  <span>Descuento por cupón:</span>
+                  <span class="text-danger">- S/ {{descuento}}</span>
+                </li>
+              </ul>
+              <div class="d-flex justify-content-between p-4">
+                <span class="h5 mb-0">Total a pagar:</span>
+                <span class="h5 mb-0">S/. {{total_pagar}} </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>

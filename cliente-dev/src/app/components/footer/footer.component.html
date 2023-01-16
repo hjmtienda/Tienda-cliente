@@ -1,0 +1,94 @@
+<!-- Footer -->
+<footer class="cs-footer pt-sm-5 pt-4 bg-dark" style="background-color: rgb(35, 35, 35) !important;">
+  <div class="container pt-3 text-center">
+    <div class="row pb-sm-2">
+      <div class="col-12 col-sm-3 col-lg-2 mb-4">
+        <h3 class="h6 mb-2 pb-1 text-uppercase text-light">{{nombre}}</h3>
+        <!-- Logo -->
+        <a [routerLink]="['/']" class="navbar-brand order-lg-1 mr-0 pr-lg-3 mr-lg-4">
+          <img [src]="url + 'obtener_logo/' + logo" alt="{{logo}}"
+            class="my-0">
+        </a>
+      </div>
+      <div class="col-12 col-sm-3 col-lg-2 col-xl-3 mb-4">
+        <h3 class="h6 mb-2 pb-1 text-uppercase text-light pl-xl-6">Secciones</h3>
+        <ul class="nav nav-light flex-column pl-xl-6">
+          <li class="nav-item mb-2">
+            <a [routerLink]="['/']" class="nav-link mr-lg-0 mr-sm-4 p-0 font-weight-normal">Home</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a [routerLink]="['/productos']" class="nav-link mr-lg-0 mr-sm-4 p-0 font-weight-normal">Tienda</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a [routerLink]="['/contactos']" class="nav-link mr-lg-0 mr-sm-4 p-0 font-weight-normal">Contacto</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a [routerLink]="['/nosotros']" class="nav-link mr-lg-0 mr-sm-4 p-0 font-weight-normal">Nosotros</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a [routerLink]="['/terminos-condiciones']" routerLinkActive="active" class="nav-link mr-lg-0 mr-sm-4 p-0 font-weight-normal">Términos y condiciones</a>
+          </li>
+          <li class="nav-item mb-2">
+            <a [routerLink]="['/politica-privacidad']" routerLinkActive="active"  class="nav-link mr-lg-0 mr-sm-4 p-0 font-weight-normal">Política de privacidad</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Redes sociales -->
+      <div class="col-12 col-sm-6 col-lg-3 pb-2 pb-lg-0 mb-4">
+        <h3 class="h6 mb-2 pb-1 text-uppercase text-light">Síguenos en</h3>
+        <a href="https://www.facebook.com/HJMAYACUCHO?mibextid=LQQJ4d" target="_blank"
+          class="social-btn sb-solid sb-light mr-2">
+          <i class="cxi-facebook"></i>
+        </a>
+        <a href="https://instagram.com/hjmayacucho?igshid=YmMyMTA2M2Y=" target="_blank"
+          class="social-btn sb-solid sb-light mr-2">
+          <i class="cxi-instagram"></i>
+        </a>
+        <a href="https://www.tiktok.com/@hokawa_yaranga?_t=8Z3gCS3GMQo&_r=1" target="_blank"
+          class="social-btn sb-solid sb-light mr-2">
+          <i class="bi bi-tiktok"></i>
+        </a>
+        <a href="https://youtube.com/@hjmtecnologiaysoporte6914" target="_blank"
+          class="social-btn sb-solid sb-light mr-2">
+          <i class="cxi-youtube"></i>
+        </a>
+      </div>
+
+      <div class="col-12 col-lg-3 col-xl-3 mb-4">
+        <h3 class="h6 mb-3 pb-1 text-uppercase text-light">Contáctanos</h3>
+        <ul class="nav nav-light flex-column pb-3">
+
+          <li class="nav-item text-nowrap mb-2">
+            <a href="https://wa.me/51920385491" class="nav-link d-inline-block mr-lg-0 mr-sm-4 p-0 font-weight-normal">
+              <i class="bi-whatsapp"></i> 920 385 491</a>
+          </li>
+
+          <li class="nav-item text-nowrap mb-2">
+            <a href="tel:920385491" class="nav-link d-inline-block mr-lg-0 mr-sm-4 p-0 font-weight-normal">
+              <i class="bi-telephone-fill"></i> (+51) 920 385 491</a>
+          </li>
+
+          <li class="nav-item text-nowrap mb-2">
+            <a href="mailto:hokawa.920385491@gmail.com"
+              class="nav-link d-inline-block mr-lg-0 mr-sm-4 p-0 font-weight-normal">
+              <i class="bi-envelope-fill"></i> Escríbenos al correo</a>
+          </li>
+          <li class="nav-item text-nowrap mb-2">
+            <span class="text-light mr-1">Email:</span>
+            <a href="mailto:hjm.tienda@gmail.com"
+              class="nav-link d-inline-block mr-lg-0 mr-sm-4 p-0 font-weight-normal">hjm.tienda@gmail.com</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="border-top border-light" style="background-color: #000;">
+    <div class="container py-2 text-center">
+      <div class="font-size-xs text-light">
+        <span class="font-size-sm">&copy; </span>
+        Todos los derechos reservados 2023.
+      </div>
+    </div>
+  </div>
+</footer>
