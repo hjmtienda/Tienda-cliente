@@ -14,14 +14,18 @@ declare var tns: any;
 export class InicioComponent implements OnInit {
 
   public config_global: any = '';
+  public load_categorias = true;
   public descuento_activo: any = undefined;
   public url: any;
 
   public load_data = true;
 
   public productos_nuevos: Array<any> = [];
+  public load_nuevos = true;
   public productos_descuento: Array<any> = [];
+  public load_descuento = true;
   public productos_mas_vendidos: Array<any> = [];
+  public load_mas_vendidos = true;
 
   constructor(
     private _title: Title,
@@ -34,6 +38,9 @@ export class InicioComponent implements OnInit {
       response => {
         //Asiganr los valores de las categorias del back
         this.config_global = response.data;
+        console.log(this.config_global.banners.length);
+        
+        this.load_categorias = false;
       }
     );
 
@@ -43,7 +50,7 @@ export class InicioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._title.setTitle('Inicio');
+    this._title.setTitle('HJM TECNOLOGÍA Y SOPORTE');
 
     //Obtener descuentos activos
     this._guestService.obtener_descuento_activo().subscribe(
@@ -61,6 +68,7 @@ export class InicioComponent implements OnInit {
     this._guestService.listar_productos_nuevos().subscribe(
       response => {
         this.productos_nuevos = response.data;
+        this.load_nuevos = false;
       }
     );
 
@@ -68,6 +76,7 @@ export class InicioComponent implements OnInit {
     this._guestService.listar_productos_mas_vendidos().subscribe(
       response => {
         this.productos_mas_vendidos = response.data;
+        this.load_mas_vendidos = false;
       }
     );
 
@@ -75,136 +84,9 @@ export class InicioComponent implements OnInit {
     this._guestService.listar_productos_descuento().subscribe(
       response => {
         this.productos_descuento = response.data;
-        this.load_data = false;
+        this.load_descuento = false;
       }
     );
-
-    setTimeout(()=>{
-      tns({
-        container: '.cs-carousel-inner',
-        controlsText: ['<i class="cxi-arrow-left"></i>', '<i class="cxi-arrow-right"></i>'],
-        mode: 'gallery',
-        navContainer: '#pager',
-        responsive: {
-          0: { controls: false },
-          991: { controls: true }
-        }
-      });
-
-      tns({
-        container: '.cs-carousel-inner-two',
-        controls: false,
-        responsive: {
-          0: {
-            gutter: 20
-          },
-          400: {
-            items: 2,
-            gutter: 20
-          },
-          520: {
-            gutter: 30
-          },
-          768: {
-            items: 3,
-            gutter: 30
-          }
-        }
-        
-      });
-
-      tns({
-        container: '.cs-carousel-inner-three',
-        controls: false,
-        mouseDrag: !0,
-        responsive: {
-          0: {
-            items: 1,
-            gutter: 20
-          },
-          420: {
-            items: 2,
-            gutter: 20
-          },
-          600: {
-            items: 3,
-            gutter: 20
-          },
-          700: {
-            items: 3,
-            gutter: 30
-          },
-          900: {
-            items: 4,
-            gutter: 30
-          },
-          1200: {
-            items: 5,
-            gutter: 30
-          },
-          1400: {
-            items: 6,
-            gutter: 30
-          }
-        }
-        
-        
-      });
-
-      tns({
-        container: '.cs-carousel-inner-four',
-        nav: false,
-        controlsText: ['<i class="cxi-arrow-left"></i>', '<i class="cxi-arrow-right"></i>'],
-        controlsContainer:'#custom-controls-trending',
-        responsive: {
-          0: {
-            items: 1,
-            gutter: 20
-          },
-          480: {
-            items: 2,
-            gutter: 24
-          },
-          700: {
-            items: 3,
-            gutter: 24
-          },
-          1100: {
-            items: 4,
-            gutter: 30
-          }
-        }
-        
-      });
-
-      tns({
-        container: '.cs-carousel-inner-five',
-        controls: false,
-        gutter: 30,
-        responsive: {
-          0: { items: 1 },
-          380: { items: 2 },
-          550: { items: 3 },
-          750: { items: 4 },
-          1000: { items: 5 },
-          1250: { items: 6 }
-        }
-        
-      });
-
-      tns({
-        container: '.cs-carousel-inner-six',
-        controls: false,
-        gutter: 15,
-        responsive: {
-          0: { items: 2 },
-          500: { items: 3 },
-          1200: { items: 3 }
-        }
-        
-      });
-
-    },500);
   }
 
 }
